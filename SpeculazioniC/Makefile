@@ -2,19 +2,19 @@
 CC       := gcc
 STD      := -std=c17
 
-# ─── Flag ─────────────────────────────────────────────────────────────────────
-WFLAGS   := -Wall -Wextra -Wpedantic -Wshadow -Wconversion -Wstrict-prototypes
-CFLAGS   := $(STD) $(WFLAGS)
-LDFLAGS  := -lm
-DBGFLAGS := -g3 -O0 -DDEBUG -fsanitize=address,undefined
-RELFLAGS := -O2 -DNDEBUG
-
 # ─── File ─────────────────────────────────────────────────────────────────────
 out     ?= a.out
 OUT_DIR ?= .
 
 TARGET  := $(OUT_DIR)/$(out)
 OBJ_DIR := $(OUT_DIR)/obj
+
+# ─── Flag ─────────────────────────────────────────────────────────────────────
+WFLAGS   := -Wall -Wextra -Wpedantic -Wshadow -Wconversion -Wstrict-prototypes
+CFLAGS   := $(STD) $(WFLAGS)
+LDFLAGS  := -lm 
+DBGFLAGS := -g3 -O0 -DDEBUG -fsanitize=address,undefined
+RELFLAGS := -O2 -DNDEBUG
 
 # ─── Sorgenti e Oggetti ───────────────────────────────────────────────────────
 SRCS := $(wildcard $(OUT_DIR)/*.c)
@@ -43,9 +43,6 @@ $(OBJ_DIR)/%.o: $(OUT_DIR)/%.c | $(OBJ_DIR)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-$(info SRCS  = $(SRCS))
-$(info OBJS  = $(OBJS))
-$(info TARGET= $(TARGET))
 # ─── Includi dipendenze (header) ──────────────────────────────────────────────
 -include $(DEPS)
 
