@@ -20,6 +20,9 @@ Include due approcci alla valutazione di espressioni matematiche:
 - **Shunting Yard** (algoritmo di Dijkstra): conversione da notazione infissa a RPN
 - **Parser classico**: parsing ricorsivo discendente
 
+### ⋮ points
+Gestione di una lista dinamica di punti con pattern visit e riduzione.
+
 ## Requisiti
 
 - GCC con supporto C17 (`-std=c17`)
