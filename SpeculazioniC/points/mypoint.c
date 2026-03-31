@@ -26,12 +26,13 @@ void free_point(Point *p)
     }
 }
 
-PointListItem *create_li(float x, float y)
+PointListItem *create_point_li(float x, float y)
 {
     PointListItem *i = malloc(sizeof(PointListItem));
     if (!i)
         return NULL;
     i->next = NULL;
+    i->surveyed = 1;
     i->p = create_point(x, y);
     if (!i->p)
     {
@@ -41,11 +42,11 @@ PointListItem *create_li(float x, float y)
     return i;
 }
 
-PointListItem *create_li_from_point(const Point *p)
+PointListItem *create_point_li_from_point(const Point *p)
 {
     if (!p)
         return NULL;
-    return create_li(p->x, p->y);
+    return create_point_li(p->x, p->y);
 }
 
 void free_li(PointListItem *p)
@@ -57,7 +58,7 @@ void free_li(PointListItem *p)
     }
 }
 
-PointList *create_list(void)
+PointList *create_point_list(void)
 {
     PointList *l = malloc(sizeof(PointList));
     if (!l)
@@ -68,7 +69,7 @@ PointList *create_list(void)
     return l;
 }
 
-void free_list(PointList *list)
+void free_point_list(PointList *list)
 {
     if (!list)
         return;
@@ -99,19 +100,24 @@ void append_point(PointList *list, const Point *p)
 {
     if (!list || !p)
         return;
-    PointListItem *li = create_li_from_point(p);
+    PointListItem *li = create_point_li_from_point(p);
     if (!append_list_item(list, li))
         free_li(li);
 }
 
-void append_point_from_coords(PointList *list, float x, float y)
+PointListItem *append_point_from_coords(PointList *list, float x, float y)
 {
     if (!list)
-        return;
-    PointListItem *li = create_li(x, y);
+        return NULL;
+    PointListItem *li = create_point_li(x, y);
     if (!append_list_item(list, li))
+    {
         free_li(li);
+        return NULL;
+    }
+    return li;
 }
+
 void insert_point_after(PointList *list, const Point *p, PointListItem *previous)
 {
     if (!list || !p)
@@ -121,7 +127,7 @@ void insert_point_after(PointList *list, const Point *p, PointListItem *previous
         append_point(list, p);
         return;
     }
-    PointListItem *li = create_li_from_point(p);
+    PointListItem *li = create_point_li_from_point(p);
     if (!li)
         return;
 
@@ -130,7 +136,7 @@ void insert_point_after(PointList *list, const Point *p, PointListItem *previous
     list->size++;
 }
 
-void visit_list(PointList *list, void (*fn)(Point *p))
+void visit_point_list(PointList *list, void (*fn)(Point *p))
 {
     PointListItem *cursor = list->head;
     while (cursor)
@@ -140,7 +146,7 @@ void visit_list(PointList *list, void (*fn)(Point *p))
     }
 }
 
-void reduce_list(PointList *list, void (*fn)(const Point *p, void *accumulator), void *accumulator)
+void reduce_point_list(PointList *list, void (*fn)(const Point *p, void *accumulator), void *accumulator)
 {
     PointListItem *cursor = list->head;
     while (cursor)
@@ -148,4 +154,58 @@ void reduce_list(PointList *list, void (*fn)(const Point *p, void *accumulator),
         fn(cursor->p, accumulator);
         cursor = cursor->next;
     }
+}
+
+int lerp(PointList *list, PointListItem *a, PointListItem *b, int n_points)
+{
+    if (!list || !a || !b || n_points <= 0 || a->next != b) // a->next != b impedisce la creazione tra punti non consecutivi
+        return 0;
+
+    int count = 0;
+    float dx = b->p->x - a->p->x;
+    float dy = b->p->y - a->p->y;
+    for (int k = 1; k <= n_points; k++)
+    {
+        float t = (float)k / (float)(n_points + 1);
+        float x = a->p->x + t * dx;
+        float y = a->p->y + t * dy;
+
+        PointListItem *new_li = create_point_li(x, y);
+        if (!new_li)
+            return count;
+        new_li->surveyed = 0;
+        new_li->next = b;
+        a->next = new_li;
+        a = new_li;
+        list->size++;
+        count++;
+    }
+    return count;
+}
+
+int bezier(PointList *list, PointListItem *a, const Point *control_point, PointListItem *b, int n_points)
+{
+    if (!list || !a || !b || !control_point || n_points <= 0 || a->next != b)
+        return 0;
+
+    int count = 0;
+    for (int k = 1; k <= n_points; k++)
+    {
+        float t = (float)k / (float)(n_points + 1);
+        float u = 1.0f - t;
+        float x = u * u * a->p->x + 2 * u * t * control_point->x + t * t * b->p->x;
+        float y = u * u * a->p->y + 2 * u * t * control_point->y + t * t * b->p->y;
+
+        PointListItem *new_li = create_point_li(x, y);
+        if (!new_li)
+            return count;
+
+        new_li->surveyed = 0;
+        new_li->next = b;
+        a->next = new_li;
+        a = new_li;
+        list->size++;
+        count++;
+    }
+    return count;
 }
