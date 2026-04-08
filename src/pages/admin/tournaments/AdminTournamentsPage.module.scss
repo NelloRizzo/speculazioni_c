@@ -1,0 +1,285 @@
+$gold: #c9a84c;
+$gold-light: #e8d08a;
+$gold-dark: #8a6820;
+$ink: #1a1209;
+$ink-mid: #2e2010;
+$cream: #f5eed8;
+$crimson: #8b1a1a;
+$green: #2d5a2d;
+
+.page {
+    padding: 2rem 2rem;
+    max-width: 960px;
+}
+
+// ── Header ────────────────────────────────────────────────────────────────────
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+.title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: $gold-light;
+    font-family: 'Georgia', serif;
+    line-height: 1.1;
+}
+
+.sub {
+    font-size: 0.8rem;
+    color: rgba($cream, 0.4);
+    margin-top: 0.2rem;
+}
+
+.btnNew {
+    flex-shrink: 0;
+    padding: 0.55rem 1.1rem;
+    background: linear-gradient(135deg, $gold, $gold-dark);
+    color: $ink;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.825rem;
+    font-weight: 700;
+    font-family: inherit;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: filter 0.15s;
+
+    &:hover {
+        filter: brightness(1.1);
+    }
+}
+
+// ── List ──────────────────────────────────────────────────────────────────────
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+}
+
+// ── Row ───────────────────────────────────────────────────────────────────────
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: rgba($gold-dark, 0.06);
+    border: 1px solid rgba($gold, 0.14);
+    border-radius: 7px;
+    transition: border-color 0.15s;
+    flex-wrap: wrap;
+
+    &:hover {
+        border-color: rgba($gold, 0.3);
+    }
+}
+
+.rowMain {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    min-width: 0;
+}
+
+.rowInfo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.rowName {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: $cream;
+}
+
+.rowFormat {
+    font-size: 0.7rem;
+    color: rgba($cream, 0.4);
+    font-style: italic;
+}
+
+.rowMeta {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.75rem;
+    color: rgba($cream, 0.4);
+}
+
+.prize {
+    color: $gold;
+}
+
+// ── Phase badge ───────────────────────────────────────────────────────────────
+
+.phaseBadge {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.45rem;
+    border-radius: 3px;
+
+    &.registration {
+        background: rgba($gold, 0.12);
+        color: $gold-light;
+    }
+
+    &.in_progress {
+        background: rgba($green, 0.4);
+        color: #7ecf7e;
+    }
+
+    &.completed {
+        background: rgba($cream, 0.05);
+        color: rgba($cream, 0.35);
+    }
+}
+
+// ── Row actions ───────────────────────────────────────────────────────────────
+
+.rowActions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+}
+
+%btn-base {
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+}
+
+.btnAdvance {
+    @extend %btn-base;
+    background: rgba($gold, 0.1);
+    color: $gold-light;
+    border-color: rgba($gold, 0.25);
+
+    &:hover {
+        background: rgba($gold, 0.2);
+    }
+}
+
+.btnEdit {
+    @extend %btn-base;
+    background: rgba($cream, 0.06);
+    color: rgba($cream, 0.6);
+    border-color: rgba($cream, 0.12);
+
+    &:hover {
+        background: rgba($cream, 0.12);
+        color: $cream;
+    }
+}
+
+.btnDelete {
+    @extend %btn-base;
+    background: rgba($crimson, 0.15);
+    color: #e07070;
+    border-color: rgba($crimson, 0.25);
+
+    &:hover {
+        background: rgba($crimson, 0.3);
+    }
+}
+
+// ── States ────────────────────────────────────────────────────────────────────
+
+.state {
+    padding: 3rem;
+    text-align: center;
+    color: rgba($cream, 0.4);
+}
+
+.err {
+    color: #e07070;
+}
+
+.empty {
+    color: rgba($cream, 0.35);
+    font-style: italic;
+}
+
+// ── Overlay / Modal ───────────────────────────────────────────────────────────
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba($ink, 0.75);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 1.5rem;
+}
+
+.modal {
+    background: $ink-mid;
+    border: 1px solid rgba($gold, 0.25);
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.modalMsg {
+    font-size: 0.95rem;
+    color: $cream;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+}
+
+.modalSub {
+    font-size: 0.8rem;
+    color: rgba($cream, 0.4);
+    font-style: italic;
+    margin-bottom: 1.5rem;
+}
+
+.modalActions {
+    display: flex;
+    gap: 0.625rem;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+}
+
+.btnCancel {
+    @extend %btn-base;
+    background: rgba($cream, 0.06);
+    color: rgba($cream, 0.55);
+    border-color: rgba($cream, 0.12);
+
+    &:hover {
+        background: rgba($cream, 0.12);
+    }
+}
+
+.btnConfirm {
+    @extend %btn-base;
+    background: rgba($crimson, 0.5);
+    color: #ffb3b3;
+    border-color: rgba($crimson, 0.4);
+
+    &:hover {
+        background: rgba($crimson, 0.7);
+    }
+}

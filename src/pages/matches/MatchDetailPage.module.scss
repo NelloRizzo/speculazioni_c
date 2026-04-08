@@ -1,0 +1,37 @@
+.page {
+    padding: 1.5rem;
+}
+
+.teams {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.vs {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    font-weight: 400;
+}
+
+.status {
+    text-align: center;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-muted);
+}
+
+.state {
+    padding: 2rem;
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+.error {
+    color: var(--color-danger);
+}

@@ -1,0 +1,356 @@
+// ── Palette & tokens ────────────────────────────────────────────────────────
+$gold: #c9a84c;
+$gold-light: #e8d08a;
+$gold-dark: #8a6820;
+$crimson: #8b1a1a;
+$crimson-dark: #5c0e0e;
+$green-dark: #1a3a1a;
+$green-mid: #2d5a2d;
+$cream: #f5eed8;
+$cream-dark: #e8dfc0;
+$ink: #1a1209;
+
+// ── Page shell ───────────────────────────────────────────────────────────────
+.page {
+    min-height: 100vh;
+    background: $ink;
+    color: $cream;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+
+    &.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// ── Hero ─────────────────────────────────────────────────────────────────────
+.hero {
+    position: relative;
+    overflow: hidden;
+    padding: 3rem 1.5rem 2rem;
+    background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba($crimson, 0.35) 0%, transparent 70%),
+        repeating-linear-gradient(45deg,
+            rgba($gold-dark, 0.04) 0px,
+            rgba($gold-dark, 0.04) 1px,
+            transparent 1px,
+            transparent 12px),
+        $ink;
+    border-bottom: 1px solid rgba($gold, 0.25);
+}
+
+.heroOrb {
+    position: absolute;
+    inset: -60% -20%;
+    background: radial-gradient(ellipse at 50% 30%, rgba($crimson, 0.2) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.heroContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+
+    @media (min-width: 640px) {
+        flex-direction: row;
+        text-align: left;
+        gap: 2.5rem;
+    }
+}
+
+.heroLogo {
+    width: 120px;
+    height: 120px;
+    border-radius: 22px;
+    box-shadow:
+        0 0 0 3px rgba($gold, 0.4),
+        0 0 0 6px rgba($gold-dark, 0.2),
+        0 12px 40px rgba(0, 0, 0, 0.6);
+    flex-shrink: 0;
+    animation: logoGlow 4s ease-in-out infinite alternate;
+
+    @media (min-width: 640px) {
+        width: 140px;
+        height: 140px;
+    }
+}
+
+@keyframes logoGlow {
+    from {
+        box-shadow: 0 0 0 3px rgba($gold, 0.3), 0 0 0 6px rgba($gold-dark, 0.15), 0 12px 40px rgba(0, 0, 0, 0.6);
+    }
+
+    to {
+        box-shadow: 0 0 0 3px rgba($gold, 0.6), 0 0 0 8px rgba($gold, 0.15), 0 16px 50px rgba($crimson, 0.3);
+    }
+}
+
+.heroText {
+    flex: 1;
+}
+
+.heroEyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: $gold;
+    margin-bottom: 0.4rem;
+}
+
+.heroTitle {
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: $cream;
+    text-shadow: 0 2px 20px rgba($crimson, 0.5);
+
+    // Decorative underline on last word
+    span {
+        color: $gold;
+    }
+}
+
+.heroSub {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    font-style: italic;
+    color: rgba($cream, 0.6);
+    letter-spacing: 0.05em;
+}
+
+.heroCtas {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @media (min-width: 640px) {
+        justify-content: flex-start;
+    }
+}
+
+.ctaPrimary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.4rem;
+    background: linear-gradient(135deg, $gold, $gold-dark);
+    color: $ink;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    font-family: inherit;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    text-transform: uppercase;
+    box-shadow: 0 2px 12px rgba($gold, 0.25);
+    transition: filter 0.2s, transform 0.2s;
+
+    &:hover {
+        filter: brightness(1.1);
+        transform: translateY(-1px);
+    }
+}
+
+.heroDivider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    color: rgba($gold, 0.4);
+    font-size: 0.5rem;
+    letter-spacing: 1rem;
+}
+
+// ── Sections ─────────────────────────────────────────────────────────────────
+.section {
+    padding: 2.5rem 1.25rem;
+    border-bottom: 1px solid rgba($gold, 0.1);
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.sectionHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+
+    h2 {
+        font-size: 1rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: $gold;
+    }
+}
+
+.sectionIcon {
+    font-size: 1rem;
+    color: $gold;
+    opacity: 0.7;
+}
+
+// ── Grid ─────────────────────────────────────────────────────────────────────
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+
+    @media (min-width: 540px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 900px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+// ── Card ─────────────────────────────────────────────────────────────────────
+.card {
+    text-decoration: none;
+    display: block;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba($gold, 0.18);
+    background: linear-gradient(160deg, rgba($green-dark, 0.6), rgba($ink, 0.95));
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+        border-color: rgba($gold, 0.45);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+    }
+}
+
+.cardInner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.cardPoster {
+    height: 140px;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s;
+    }
+
+    .card:hover & img {
+        transform: scale(1.04);
+    }
+}
+
+.cardBody {
+    padding: 1rem 1.125rem 1.125rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.phase {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    margin-bottom: 0.2rem;
+    width: fit-content;
+
+    &.registration {
+        background: rgba($gold, 0.15);
+        color: $gold-light;
+    }
+
+    &.in_progress {
+        background: rgba($green-mid, 0.4);
+        color: #7ecf7e;
+    }
+
+    &.completed {
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba($cream, 0.45);
+    }
+}
+
+.cardName {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: $cream;
+    line-height: 1.25;
+}
+
+.cardFormat {
+    font-size: 0.75rem;
+    color: rgba($cream, 0.5);
+    font-style: italic;
+}
+
+.cardLocation {
+    font-size: 0.75rem;
+    color: rgba($cream, 0.45);
+    margin-top: 0.1rem;
+}
+
+.cardFooter {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: rgba($cream, 0.45);
+    border-top: 1px solid rgba($gold, 0.1);
+}
+
+.prize {
+    color: $gold;
+    font-weight: 600;
+}
+
+// ── Empty ────────────────────────────────────────────────────────────────────
+.empty {
+    padding: 5rem 1.5rem;
+    text-align: center;
+    color: rgba($cream, 0.35);
+
+    p {
+        font-size: 0.9rem;
+    }
+}
+
+.emptyIcon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.2;
+}
+
+// ── Footer ornament ──────────────────────────────────────────────────────────
+.foot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem 1.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba($gold, 0.3);
+}

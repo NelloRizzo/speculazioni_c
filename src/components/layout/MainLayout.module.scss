@@ -1,0 +1,98 @@
+$gold: #c9a84c;
+$gold-dark: #8a6820;
+$ink: #1a1209;
+$cream: #f5eed8;
+
+.layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: $ink;
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    height: 56px;
+    background: rgba($ink, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba($gold, 0.2);
+}
+
+// ── Brand ─────────────────────────────────────────────────────────────────────
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.brandLogo {
+    width: 32px;
+    height: 32px;
+    border-radius: 7px;
+    border: 1px solid rgba($gold, 0.35);
+    box-shadow: 0 0 8px rgba($gold, 0.2);
+}
+
+.brandName {
+    font-family: 'Georgia', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $gold;
+    letter-spacing: 0.03em;
+}
+
+// ── Nav ───────────────────────────────────────────────────────────────────────
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.navLink {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgba($cream, 0.6);
+    border-radius: 4px;
+    transition: color 0.15s, background 0.15s;
+
+    &:hover {
+        color: $gold;
+        background: rgba($gold, 0.08);
+    }
+}
+
+.navButton {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba($cream, 0.6);
+    background: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: color 0.15s, background 0.15s;
+
+    &:hover {
+        color: #e05555;
+        background: rgba(#e05555, 0.08);
+    }
+}
+
+// ── Main ──────────────────────────────────────────────────────────────────────
+.main {
+    flex: 1;
+}
