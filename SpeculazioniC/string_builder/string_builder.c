@@ -84,7 +84,7 @@ string_builder *builder_insert_at(string_builder *sb, const char *s, int pos)
 
 string_builder *builder_prepend(string_builder *sb, const char *s, queue_node *parent)
 {
-    return nullptr;
+    return NULL;
 }
 
 char *builder_build(const string_builder *sb)

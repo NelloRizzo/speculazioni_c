@@ -4,10 +4,10 @@ STD      := -std=c17
 
 # ─── File ─────────────────────────────────────────────────────────────────────
 out     ?= a.out
-OUT_DIR ?= .
+PRJ 	?= .
 
-TARGET  := $(OUT_DIR)/$(out)
-OBJ_DIR := $(OUT_DIR)/obj
+TARGET  := $(PRJ)/$(out)
+OBJ_DIR := $(PRJ)/obj
 
 # ─── Flag ─────────────────────────────────────────────────────────────────────
 WFLAGS   := -Wall -Wextra -Wpedantic -Wshadow -Wconversion -Wstrict-prototypes
@@ -17,8 +17,8 @@ DBGFLAGS := -g3 -O0 -DDEBUG -fsanitize=address,undefined
 RELFLAGS := -O2 -DNDEBUG
 
 # ─── Sorgenti e Oggetti ───────────────────────────────────────────────────────
-SRCS := $(wildcard $(OUT_DIR)/*.c)
-OBJS := $(patsubst $(OUT_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+SRCS := $(wildcard $(PRJ)/*.c)
+OBJS := $(patsubst $(PRJ)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 DEPS := $(OBJS:.o=.d)
 
 # ─── Default: debug ───────────────────────────────────────────────────────────
@@ -36,7 +36,7 @@ $(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 # ─── Compilazione con dipendenze automatiche ──────────────────────────────────
-$(OBJ_DIR)/%.o: $(OUT_DIR)/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: $(PRJ)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 
 # ─── Crea la cartella obj se non esiste ───────────────────────────────────────
