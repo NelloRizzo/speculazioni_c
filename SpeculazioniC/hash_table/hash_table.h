@@ -1,10 +1,25 @@
 #ifndef HASH_TABLE_H
 #define HASH_TABLE_H
 
+/*
+    Una tabella hash.
+ */
 typedef struct hash_table HashTable;
-
+/*
+    Funzione di hashing usata nella tabella per il calcolo della chiave.
+*/
 typedef unsigned long (*hash_func)(unsigned char *);
+/*
+    Funzione usata nella tabella per liberare i dati contenuti 
+    (ricorda che sono void* e quindi la tabella non saprebbe come liberare la memoria).
+*/
 typedef void (*free_func)(void *);
+
+/*
+    -------------------------------------
+    FUNZIONI DI HASHING 
+    -------------------------------------
+*/
 
 /*
     DJB2 (di Dan Bernstein)
@@ -29,6 +44,12 @@ unsigned long hash_sdbm(unsigned char *str);
     È molto veloce e ha un tasso di collisioni bassissimo.
 */
 unsigned long hash_fnv1a(unsigned char *str);
+
+/*
+    -------------------------------------
+    FUNZIONI DI GESTIONE DI UNA HASHTABLE
+    -------------------------------------
+*/
 
 /*
     Costruttore per una HashTable.
