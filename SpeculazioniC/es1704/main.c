@@ -6,24 +6,56 @@
 #define STACK_ERROR -2
 #define IS_BALANCED -1
 
-void print(void *data)
+void print_stack_item(const void *data)
 {
     char *c = (char *)data;
     printf("%c\n", *c);
 }
 
-int related(char closed)
-{
-    return closed == ')' ? '(' : (closed == ']' ? '[' : (closed == '}' ? '{' : 'x'));
-}
-
-int is_opened(char c)
+int is_opened_bracket(char c)
 {
     return c == '(' || c == '[' || c == '{';
 }
-int is_closed(char c)
+int is_closed_bracket(char c)
 {
     return c == ')' || c == ']' || c == '}';
+}
+int is_bracket(char c)
+{
+    return is_opened_bracket(c) || is_closed_bracket(c);
+}
+
+int related_bracket(char bracket)
+{
+    if (is_closed_bracket(bracket))
+    {
+        switch (bracket)
+        {
+        case ')':
+            return '(';
+        case ']':
+            return '[';
+        case '}':
+            return '{';
+        default:
+            break;
+        }
+    }
+    else if (is_opened_bracket(bracket))
+    {
+        switch (bracket)
+        {
+        case ')':
+            return '(';
+        case ']':
+            return '[';
+        case '}':
+            return '{';
+        default:
+            break;
+        }
+    }
+    return '_';
 }
 
 int check_expression(char *expr)
@@ -36,24 +68,27 @@ int check_expression(char *expr)
     while (*cursor)
     {
         position++;
-        if (is_closed(*cursor) || is_opened(*cursor))
+        if (is_bracket(*cursor))
         {
-            if (*cursor == '(' || *cursor == '[' || *cursor == '{')
+            if (is_opened_bracket(*cursor))
             {
                 stack_push(s, cursor);
 
                 printf("LOG: Parentesi aperta: %c\n", *cursor);
+                printf("LOG: Stack attuale:\n");
+                stack_visit(s, print_stack_item);
             }
             else
             {
                 char *last_opened = (char *)stack_pop(s);
-                printf("LOG: Parentesi chiusa: %c - Ultima aperta: %c\n", *cursor, *last_opened);
 
-                if (!last_opened || *last_opened != related(*cursor))
+                if (!last_opened || *last_opened != related_bracket(*cursor))
                 {
+                    printf("LOG: Stack vuoto non previsto in questo contesto, quindi l'espressione non è bilanciata\n");
                     stack_free(s);
                     return position;
                 }
+                printf("LOG: Parentesi chiusa: %c - Ultima aperta: %c\n", *cursor, *last_opened);
             }
         }
         cursor++;
