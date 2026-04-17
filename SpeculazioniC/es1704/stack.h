@@ -6,6 +6,8 @@ typedef struct stack Stack;
 typedef void (*visit_fn)(const void *);
 /* Crea lo stack */
 Stack *stack_create(void);
+/* Osserva senza cancellare l'elemento in testa allo stack */
+void *stack_peek(Stack *s);
 /* Preleva e restituisce l'ultimo elemento inserito */
 void *stack_pop(Stack *s);
 /* Inserisce un elemento in stack */

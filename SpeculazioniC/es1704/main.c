@@ -45,12 +45,12 @@ int related_bracket(char bracket)
     {
         switch (bracket)
         {
-        case ')':
-            return '(';
-        case ']':
-            return '[';
-        case '}':
-            return '{';
+        case '(':
+            return ')';
+        case '[':
+            return ']';
+        case '{':
+            return '}';
         default:
             break;
         }
@@ -84,7 +84,7 @@ int check_expression(char *expr)
 
                 if (!last_opened || *last_opened != related_bracket(*cursor))
                 {
-                    printf("LOG: Stack vuoto non previsto in questo contesto, quindi l'espressione non è bilanciata\n");
+                    printf("LOG: Stack vuoto non previsto oppure parentesi non corrispondente\n");
                     stack_free(s);
                     return position;
                 }

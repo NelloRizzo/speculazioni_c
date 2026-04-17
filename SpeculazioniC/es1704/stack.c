@@ -24,6 +24,13 @@ Stack *stack_create(void)
     return s;
 }
 
+void *stack_peek(Stack *s)
+{
+    if (!s || !s->head)
+        return NULL;
+    return s->head->data;
+}
+
 void *stack_pop(Stack *s)
 {
     if (!s || !s->head)
